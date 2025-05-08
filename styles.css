@@ -1,0 +1,391 @@
+/* Темная тема */
+body.dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Шапка */
+.header {
+    position: sticky;
+    top: 0;
+    background-color: #1a1a1a;
+    z-index: 1000;
+    border-bottom: 1px solid #333;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: color 0.3s;
+}
+
+.menu li a:hover {
+    color: #00ff00;
+}
+
+.burger-menu {
+    display: none;
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #e0e0e0;
+}
+
+.header-right input[type="text"] {
+    background-color: #2d2d2d;
+    border: none;
+    padding: 10px;
+    color: #e0e0e0;
+    width: 150px;
+}
+
+.submit-btn {
+    background-color: #00ff00;
+    color: #1a1a1a;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Каталог */
+.catalog {
+    padding: 40px 0;
+}
+
+.filters {
+    width: 250px;
+    float: left;
+    margin-right: 40px;
+}
+
+.filters h3 {
+    margin-top: 20px;
+}
+
+.sort-bar {
+    margin-bottom: 10px;
+}
+
+.sort-bar select {
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 8px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #2d2d2d;
+    padding: 15px;
+    border-radius: 8px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.card h4 {
+    margin: 10px 0 5px;
+}
+
+.card .price {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+/* Поиск */
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+/* Пагинация */
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.pagination button {
+    background-color: #00ff00;
+    color: #1a1a1a;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Кнопка сброса */
+.reset-btn {
+    background-color: #ff4444;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #444;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.modal-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.modal-gallery {
+    flex: 1;
+    min-width: 300px;
+}
+
+.modal-gallery img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.gallery-thumbnails {
+    display: flex;
+    gap: 10px;
+}
+
+.gallery-thumbnails img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.gallery-thumbnails img.active {
+    border-color: #00ff00;
+}
+
+.modal-details {
+    flex: 1;
+    min-width: 250px;
+}
+
+.modal-details h2 {
+    margin-top: 0;
+}
+
+.modal-details iframe {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* Мобильное меню */
+@media (max-width: 768px) {
+    .burger-menu {
+        display: block;
+    }
+
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .filters {
+        width: 100%;
+        float: none;
+        margin-right: 0;
+    }
+	
+	
+/* Слайдер */
+.slider {
+    position: relative;
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.slides-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 300%;
+}
+
+.slide {
+    min-width: 100%;
+    transition: opacity 0.5s ease-in-out;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Кнопки */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+/* Точки по бокам */
+.dots-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.dots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dots span {
+    width: 10px;
+    height: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dots span.active {
+    background-color: #00ff00;
+}
+}

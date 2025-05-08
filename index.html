@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Wörk Premium</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dark-mode">
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="logo.png" alt="Логотип Wörк Premium" class="logo-img"> 
+                    Wörk Premium
+                </a>
+                <ul class="menu" id="menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="https://ozon.ru " target="_blank">Ozon</a></li>
+                    <li><a href="https://wb.ru " target="_blank">WB</a></li>
+                    <li><a href="https://market.yandex.ru " target="_blank">ЯндексМаркет</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+                <button class="burger-menu" id="burger">&#9776;</button>
+                <div class="header-right">
+                    <input type="text" placeholder="Поиск..." />
+                    <button class="submit-btn">Поиск</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Слайдер -->
+<section class="slider">
+    <div class="slides-container">
+        <div class="slide active">
+            <img src="images/slider1.jpg" alt="Баннер 1">
+        </div>
+        <div class="slide">
+            <img src="images/slider2.jpg" alt="Баннер 2">
+        </div>
+        <div class="slide">
+            <img src="images/slider3.jpg" alt="Баннер 3">
+        </div>
+    </div>
+
+    <!-- Кнопки слева и справа -->
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+
+    <!-- Точки по бокам -->
+    <div class="dots-container">
+        <div class="dots dots-left">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+        <div class="dots dots-right">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+        </div>
+    </div>
+</section>
+
+    <!-- Контент главной страницы -->
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Мешки для пылесосов и расходники премиум-класса</h1>
+                <p>Высококачественные материалы для идеальной чистоты вашего дома</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

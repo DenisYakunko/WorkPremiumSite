@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "name": "Мешок для пылесоса Karcher  WD2, WD3",
+    "description": "Универсальный мешок для пылесоса с высокой степенью фильтрации.",
+    "price": 876,
+    "inStock": true,
+    "category": "Мешки для пылесосов Karcher WD2",
+    "tags": ["универсальный", "фильтр"],
+    "images": ["images/products/Karcher1.jpg", "images/products/Karcher2.jpg"],
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ "
+  },
+  {
+    "id": 2,
+    "name": "Одноразовые фильтры пакеты для заваривания в чашке",
+    "description": "Фильтр с угольным слоем для очистки воздуха.",
+    "price": 531,
+    "inStock": true,
+    "category": "Фильтры",
+    "tags": ["одноразовый", "пакеты"],
+    "images": ["images/products/Drip1.jpg", "images/products/Drip2.jpg"],
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ "
+  }
+]

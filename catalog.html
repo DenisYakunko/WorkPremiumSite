@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Каталог - Wörk Premium</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="dark-mode">
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="logo.png" alt="Логотип Wörк Premium" class="logo-img"> 
+                    Wörк Premium
+                </a>
+                <ul class="menu" id="menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="https://ozon.ru " target="_blank">Ozon</a></li>
+                    <li><a href="https://wb.ru " target="_blank">WB</a></li>
+                    <li><a href="https://market.yandex.ru " target="_blank">ЯндексМаркет</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+                </ul>
+                <button class="burger-menu" id="burger">&#9776;</button>
+                <div class="header-right">
+                    <input type="text" placeholder="Поиск..." />
+                    <button class="submit-btn">Поиск</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Каталог -->
+    <main>
+        <section class="catalog">
+            <div class="container">
+                <!-- Фильтры -->
+                <aside class="filters">
+                    <h3>Категории</h3>
+                    <ul id="category-filters"></ul>
+
+                    <h3>Цена</h3>
+                    <input type="range" id="price-range" min="0" max="10000" value="5000">
+                    <span id="price-value">5000 ₽</span>
+
+                    <h3>Наличие</h3>
+                    <label><input type="checkbox" id="in-stock"> В наличии</label>
+
+                    <button id="reset-filters" class="reset-btn">Сбросить фильтры</button>
+                </aside>
+
+                <!-- Сортировка -->
+                <div class="sort-bar">
+                    <label for="sort-select">Сортировать по:</label>
+                    <select id="sort-select">
+                        <option value="priceAsc">Цене ↑</option>
+                        <option value="priceDesc">Цене ↓</option>
+                        <option value="popularity">Популярности</option>
+                    </select>
+                </div>
+
+                <!-- Поиск -->
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Поиск по названию или описанию...">
+                </div>
+
+                <!-- Карточки товаров -->
+                <div class="product-grid" id="product-grid"></div>
+
+                <!-- Пагинация -->
+                <div class="pagination">
+                    <button id="prev-page">&laquo; Назад</button>
+                    <span id="page-info"></span>
+                    <button id="next-page">Вперед &raquo;</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body">
+                <div class="modal-gallery">
+                    <img src="" alt="" id="modal-image">
+                    <div class="gallery-thumbnails" id="gallery-thumbnails"></div>
+                </div>
+                <div class="modal-details">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-description"></p>
+                    <div class="price" id="modal-price"></div>
+                    <iframe id="modal-video" src="" frameborder="0" allowfullscreen></iframe>
+                    <button class="cta-btn">Забронировать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
