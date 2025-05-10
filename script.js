@@ -288,4 +288,32 @@ if (slides.length > 0) {
         // Инициализация
         loadProducts();
     }
+	
+        // Анимация объектов
+	function initAnimation() {
+    const animateElements = document.querySelectorAll('.animate');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting || entry.intersectionRatio > 0.1) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target); // Отключаем наблюдение после анимации
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px" // Срабатывает чуть раньше, чем элемент в фокусе
+    });
+
+    animateElements.forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// Запуск анимации (вкл/выкл через enable-animation)
+if (document.body.classList.contains('enable-animation')) {
+    window.addEventListener('load', () => {
+        setTimeout(initAnimation, 100); // Небольшая задержка для элементов в зоне видимости
+    });
+}
 });
