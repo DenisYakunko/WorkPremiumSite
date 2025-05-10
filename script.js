@@ -213,6 +213,8 @@ if (slides.length > 0) {
 
             document.getElementById('modal-title').textContent = product.name;
             document.getElementById('modal-description').textContent = product.description;
+            			    // Подробное описание в модальном окне
+			document.getElementById('modal-description2').textContent = product.description2;
             document.getElementById('modal-price').textContent = `${product.price} ₽`;
 
             const mainImage = document.getElementById('modal-image');
