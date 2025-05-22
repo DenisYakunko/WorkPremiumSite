@@ -268,7 +268,7 @@
                         <option value="Данил">Данил</option>
                         <option value="Константин">Константин</option>
                         <option value="Алексей">Алексей</option>
-			<option value="Денис">Денис</option>
+						<option value="Денис">Денис</option>
                     </select>
                 </div>
                 <div style="flex: 1; min-width: 200px;">
@@ -400,9 +400,10 @@
                                 <strong>Исполнители:</strong>
                                 <div class="task-executors">${task.executors.join(', ')}</div>
                                 <select class="task-executors-edit" multiple style="display: none;">
-                                    <option value="Иван Иванов" ${task.executors.includes('Иван Иванов') ? 'selected' : ''}>Иван Иванов</option>
-                                    <option value="Петр Петров" ${task.executors.includes('Петр Петров') ? 'selected' : ''}>Петр Петров</option>
-                                    <option value="Сергей Сергеев" ${task.executors.includes('Сергей Сергеев') ? 'selected' : ''}>Сергей Сергеев</option>
+                                    <option value="Иван Иванов" ${task.executors.includes('Данил') ? 'selected' : ''}>Данил</option>
+                                    <option value="Петр Петров" ${task.executors.includes('Константин') ? 'selected' : ''}>Константин</option>
+                                    <option value="Сергей Сергеев" ${task.executors.includes('Алексей') ? 'selected' : ''}>Алексей</option>
+									<option value="Сергей Сергеев" ${task.executors.includes('Денис') ? 'selected' : ''}>Денис</option>
                                 </select>
                             </div>
                             <div>
