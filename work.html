@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Задачи - Wörk Premium</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* Стили для задач */
+        .tasks-container {
+            margin: 2rem 0;
+        }
+
+        .task-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .task-group {
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            background-color: #2d2d2d;
+            margin-bottom: 1rem;
+        }
+
+        .task-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .task-group-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .task-group-title .status-icon {
+            font-size: 1.5rem;
+        }
+
+        .task-group-content {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .task {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-number {
+            font-weight: bold;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .task-actions button {
+            background: none;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            border-radius: 4px;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .task-actions button:hover {
+            background-color: #00ff00;
+            color: #1a1a1a;
+        }
+
+        .task-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .task-details {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+        }
+
+        .task-details div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .task-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .task-details strong {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .task.completed .task-status.completed::before {
+            content: "✓ ";
+        }
+
+        .task.completed {
+            opacity: 0.7;
+        }
+
+        .add-task-form {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            padding: 1rem;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .add-task-form input,
+        .add-task-form select {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            padding: 0.5rem;
+            border-radius: 4px;
+            color: #ffffff;
+        }
+
+        .add-task-form button {
+            background-color: #00ff00;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        .add-task-form button:hover {
+            background-color: #00cc00;
+        }
+
+        .task-group-header .status-icon.completed {
+            color: #00ff00;
+        }
+
+        .task-group-header .status-icon.overdue {
+            color: #ff4444;
+        }
+
+        .task-group-header .status-icon.active {
+            color: #00ccff;
+        }
+
+        .task.completed .task-status.completed {
+            color: #00ff00;
+        }
+
+        .task.completed .task-actions button.remove {
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+
+        .task.completed .task-actions button.remove:hover {
+            background-color: #ff4444;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="logo.png" alt="Логотип Wörк Premium" class="logo-img"> 
+                    Wörк Premium
+                </a>
+                <ul class="menu" id="menu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="work.html">Задачи</a></li>
+                    <li><a href="contacts.html">Контакты</a></li>
+					<li><a href="work.html">Задачи</a></li>
+                </ul>
+                <button class="burger-menu" id="burger">&#9776;</button>
+                <div class="header-right">
+                    <input type="text" placeholder="Поиск...">
+                    <button class="submit-btn">Поиск</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main class="container">
+        <h1>Управление задачами</h1>
+        
+        <!-- Фильтр задач -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+            <div>
+                <label for="filter-date">Дата:</label>
+                <input type="date" id="filter-date">
+            </div>
+            <div>
+                <label for="filter-executor">Исполнитель:</label>
+                <select id="filter-executor">
+                    <option value="">Все</option>
+                    <option value="Данил">Данил</option>
+                    <option value="Константин">Константин</option>
+                    <option value="Алексей">Алексей</option>
+					<option value="Денис">Денис</option>
+                </select>
+            </div>
+            <div>
+                <label for="filter-status">Статус:</label>
+                <select id="filter-status">
+                    <option value="">Все</option>
+                    <option value="completed">Выполненные</option>
+                    <option value="active">Активные</option>
+                    <option value="overdue">Просроченные</option>
+                </select>
+            </div>
+            <div style="display: flex; align-items: flex-end;">
+                <button onclick="applyFilters()" style="padding: 0.5rem 1rem; background-color: #00ff00; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: #1a1a1a;">Применить фильтр</button>
+                <button onclick="clearFilters()" style="padding: 0.5rem 1rem; background-color: #ff4444; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: #ffffff; margin-left: 0.5rem;">Очистить фильтр</button>
+            </div>
+        </div>
+        
+        <!-- Кнопка добавления задачи -->
+        <div style="margin: 1rem 0;">
+            <button id="add-task-btn" onclick="toggleAddTaskForm()" style="background-color: #00ff00; border: none; border-radius: 4px; padding: 0.5rem 1rem; cursor: pointer; font-weight: bold; color: #1a1a1a;">Добавить задачу</button>
+        </div>
+        
+        <!-- Форма добавления задачи -->
+        <div class="add-task-form" id="add-task-form" style="display: none; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+            <h3>Добавить новую задачу</h3>
+            <div>
+                <label for="new-task-text">Текст задачи:</label>
+                <input type="text" id="new-task-text" placeholder="Введите текст задачи" style="width: 100%;">
+            </div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                    <label for="new-task-executors">Исполнители:</label>
+                    <select id="new-task-executors" multiple>
+                        <option value="Иван Иванов">Иван Иванов</option>
+                        <option value="Петр Петров">Петр Петров</option>
+                        <option value="Сергей Сергеев">Сергей Сергеев</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <label for="new-task-date">Дата задачи:</label>
+                    <input type="date" id="new-task-date" required>
+                </div>
+                <div style="flex: 1; min-width: 200px;">
+                    <label for="new-task-due">Дата выполнения:</label>
+                    <input type="date" id="new-task-due" required>
+                </div>
+            </div>
+            <button onclick="addTask()">Добавить задачу</button>
+        </div>
+        
+        <!-- Список задач -->
+        <div class="tasks-container">
+            <h2>Список задач</h2>
+            <div class="task-list" id="task-list"></div>
+        </div>
+    </main>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js "></script>
+
+    <!-- Firebase config -->
+    <script>
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAcVXkXvm5VFEwWs8r6G6rUstbKLDoGi4c",
+            authDomain: "work-task-manager-2de84.firebaseapp.com",
+            databaseURL: "https://work-task-manager-2de84-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "work-task-manager-2de84",
+            storageBucket: "work-task-manager-2de84.firebasestorage.app",
+            messagingSenderId: "613025386878",
+            appId: "1:613025386878:web:b2afe84db2273848a9632f"
+        };
+
+        // Инициализация Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+    </script>
+
+    <!-- Логика задач -->
+    <script>
+        // Глобальные переменные
+        let tasks = [];
+        let taskIdCounter = 1;
+
+        // Сохранение задач в Firebase
+        function saveTasksToFirebase() {
+            db.ref('tasks').set(tasks);
+        }
+
+        // Загрузка задач из Firebase
+        function loadTasksFromFirebase() {
+            db.ref('tasks').on('value', (snapshot) => {
+                const data = snapshot.val();
+                tasks = data ? Object.values(data).map((t, i) => ({...t, index: i})).filter(t => t.id !== undefined) : [];
+                taskIdCounter = Math.max(...tasks.map(t => t.id), 0) + 1;
+                renderTasks();
+            });
+        }
+
+        // Функция для отображения задач
+        function renderTasks(filteredTasks = tasks) {
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+
+            // Группировка задач по дате создания
+            const tasksByDate = {};
+            filteredTasks.forEach(task => {
+                if (!tasksByDate[task.date]) {
+                    tasksByDate[task.date] = [];
+                }
+                tasksByDate[task.date].push(task);
+            });
+
+            // Отображаем задачи по группам
+            Object.entries(tasksByDate).forEach(([date, dateTasks]) => {
+                const taskGroup = document.createElement('div');
+                taskGroup.className = 'task-group';
+
+                // Проверяем статус группы
+                const isCompleted = dateTasks.every(task => task.completed);
+                const hasOverdue = dateTasks.some(task => !task.completed && task.dueDate < new Date().toISOString().split('T')[0]);
+
+                // Заголовок группы
+                const taskGroupHeader = document.createElement('div');
+                taskGroupHeader.className = 'task-group-header';
+                taskGroupHeader.innerHTML = `
+                    <div class="task-group-title">
+                        <span>Задачи от ${date}</span>
+                        <span class="status-icon">${isCompleted ? '✓' : (hasOverdue ? '❗' : '')}</span>
+                    </div>
+                    <span>${dateTasks.length} задач</span>
+                `;
+
+                // Содержимое группы
+                const taskGroupContent = document.createElement('div');
+                taskGroupContent.className = 'task-group-content';
+
+                // Добавляем задачи
+                dateTasks.forEach(task => {
+                    const taskElement = document.createElement('div');
+                    taskElement.className = `task ${task.completed ? 'completed' : ''}`;
+                    taskElement.dataset.taskId = task.id;
+
+                    const statusClass = task.completed 
+                        ? 'completed' 
+                        : (task.dueDate < new Date().toISOString().split('T')[0] ? 'overdue' : 'active');
+
+                    taskElement.innerHTML = `
+                        <div class="task-header">
+                            <div class="task-number">Задача №${task.id}</div>
+                            <div class="task-actions">
+                                <button class="edit" onclick="toggleEditTask(this)">Редактировать</button>
+                                <button class="complete" onclick="markTaskCompleted(this)">${task.completed ? 'Отменить' : 'Выполнено'}</button>
+                                <button class="remove" onclick="removeTask(this)">Удалить</button>
+                            </div>
+                        </div>
+                        <div class="task-details">
+                            <div style="grid-column: 1 / -1;">
+                                <strong>Текст задачи:</strong>
+                                <div class="task-text">${task.text}</div>
+                                <input type="text" class="task-text-edit" value="${task.text}" style="display: none;">
+                            </div>
+                            <div>
+                                <strong>Исполнители:</strong>
+                                <div class="task-executors">${task.executors.join(', ')}</div>
+                                <select class="task-executors-edit" multiple style="display: none;">
+                                    <option value="Иван Иванов" ${task.executors.includes('Иван Иванов') ? 'selected' : ''}>Иван Иванов</option>
+                                    <option value="Петр Петров" ${task.executors.includes('Петр Петров') ? 'selected' : ''}>Петр Петров</option>
+                                    <option value="Сергей Сергеев" ${task.executors.includes('Сергей Сергеев') ? 'selected' : ''}>Сергей Сергеев</option>
+                                </select>
+                            </div>
+                            <div>
+                                <strong>Дата задачи:</strong>
+                                <div class="task-date">${task.taskDate}</div>
+                                <input type="date" class="task-date-edit" value="${task.taskDate}" style="display: none;">
+                            </div>
+                            <div>
+                                <strong>Дата выполнения:</strong>
+                                <div class="task-due-date">${task.dueDate}</div>
+                                <input type="date" class="task-due-date-edit" value="${task.dueDate}" style="display: none;">
+                            </div>
+                            <div class="task-status ${statusClass}">
+                                ${task.completed ? 'Выполнено' : (task.dueDate < new Date().toISOString().split('T')[0] ? 'Просрочено' : 'Активно')}
+                            </div>
+                        </div>
+                    `;
+
+                    taskGroupContent.appendChild(taskElement);
+                });
+
+                // Обработчики событий для заголовка группы
+                taskGroupHeader.addEventListener('click', () => {
+                    const isOpen = taskGroupContent.style.display === 'flex';
+                    taskGroupContent.style.display = isOpen ? 'none' : 'flex';
+                });
+
+                taskGroup.appendChild(taskGroupHeader);
+                taskGroup.appendChild(taskGroupContent);
+                taskList.appendChild(taskGroup);
+            });
+        }
+
+        // Функция для применения фильтров
+        function applyFilters() {
+            const filterDate = document.getElementById('filter-date').value;
+            const filterExecutor = document.getElementById('filter-executor').value;
+            const filterStatus = document.getElementById('filter-status').value;
+
+            let filteredTasks = [...tasks];
+
+            if (filterDate) {
+                filteredTasks = filteredTasks.filter(task => task.date === filterDate);
+            }
+
+            if (filterExecutor) {
+                filteredTasks = filteredTasks.filter(task => task.executors.includes(filterExecutor));
+            }
+
+            if (filterStatus === 'completed') {
+                filteredTasks = filteredTasks.filter(task => task.completed);
+            } else if (filterStatus === 'active') {
+                filteredTasks = filteredTasks.filter(task => !task.completed && task.dueDate >= new Date().toISOString().split('T')[0]);
+            } else if (filterStatus === 'overdue') {
+                filteredTasks = filteredTasks.filter(task => !task.completed && task.dueDate < new Date().toISOString().split('T')[0]);
+            }
+
+            renderTasks(filteredTasks);
+        }
+
+        // Функция для очистки фильтров
+        function clearFilters() {
+            document.getElementById('filter-date').value = '';
+            document.getElementById('filter-executor').value = '';
+            document.getElementById('filter-status').value = '';
+            applyFilters();
+        }
+
+        // Функция для переключения формы добавления задачи
+        function toggleAddTaskForm() {
+            const form = document.getElementById('add-task-form');
+            const btn = document.getElementById('add-task-btn');
+            const isVisible = form.style.display === 'flex';
+
+            form.style.display = isVisible ? 'none' : 'flex';
+            btn.textContent = isVisible ? 'Добавить задачу' : 'Скрыть форму';
+        }
+
+        // Функция для добавления задачи
+        function addTask() {
+            const taskText = document.getElementById('new-task-text').value;
+            const executors = Array.from(document.getElementById('new-task-executors').selectedOptions).map(opt => opt.value);
+            const taskDate = document.getElementById('new-task-date').value;
+            const dueDate = document.getElementById('new-task-due').value;
+
+            if (!taskText || executors.length === 0 || !taskDate || !dueDate) {
+                alert('Заполните все поля');
+                return;
+            }
+
+            const newTask = {
+                id: taskIdCounter++,
+                text: taskText,
+                executors: executors,
+                date: new Date().toISOString().split('T')[0], // Дата создания задачи
+                taskDate: taskDate,
+                dueDate: dueDate,
+                completed: false,
+                completedBy: '',
+                completedDate: ''
+            };
+
+            tasks.push(newTask);
+            saveTasksToFirebase();
+            document.getElementById('new-task-text').value = '';
+            const executorsSelect = document.getElementById('new-task-executors');
+            Array.from(executorsSelect.options).forEach(opt => opt.selected = false);
+            document.getElementById('new-task-date').value = '';
+            document.getElementById('new-task-due').value = '';
+        }
+
+        // Функция для редактирования задачи
+        function toggleEditTask(button) {
+            const taskElement = button.closest('.task');
+            const taskId = parseInt(taskElement.dataset.taskId);
+            const taskIndex = tasks.findIndex(t => t.id === taskId);
+            const task = tasks[taskIndex];
+            const isEditing = taskElement.classList.contains('editing');
+
+            taskElement.classList.toggle('editing', !isEditing);
+            button.textContent = isEditing ? 'Редактировать' : 'Сохранить';
+
+            // Показываем/скрываем поля ввода
+            taskElement.querySelector('.task-text').style.display = isEditing ? 'block' : 'none';
+            taskElement.querySelector('.task-text-edit').style.display = isEditing ? 'block' : 'none';
+            taskElement.querySelector('.task-executors').style.display = isEditing ? 'none' : 'block';
+            taskElement.querySelector('.task-executors-edit').style.display = isEditing ? 'block' : 'none';
+            taskElement.querySelector('.task-date').style.display = isEditing ? 'none' : 'block';
+            taskElement.querySelector('.task-date-edit').style.display = isEditing ? 'block' : 'none';
+            taskElement.querySelector('.task-due-date').style.display = isEditing ? 'none' : 'block';
+            taskElement.querySelector('.task-due-date-edit').style.display = isEditing ? 'block' : 'none';
+
+            if (isEditing) {
+                task.text = taskElement.querySelector('.task-text-edit').value;
+                task.executors = Array.from(taskElement.querySelector('.task-executors-edit').selectedOptions).map(opt => opt.value);
+                task.taskDate = taskElement.querySelector('.task-date-edit').value;
+                task.dueDate = taskElement.querySelector('.task-due-date-edit').value;
+
+                saveTasksToFirebase();
+                renderTasks();
+            }
+        }
+
+        // Функция для удаления задачи
+        function removeTask(button) {
+            const taskElement = button.closest('.task');
+            const taskId = parseInt(taskElement.dataset.taskId);
+
+            if (confirm('Вы уверены, что хотите удалить эту задачу?')) {
+                tasks = tasks.filter(task => task.id !== taskId);
+                saveTasksToFirebase();
+                renderTasks();
+            }
+        }
+
+        // Функция для отметки выполнения задачи
+        function markTaskCompleted(button) {
+            const taskElement = button.closest('.task');
+            const taskId = parseInt(taskElement.dataset.taskId);
+            const taskIndex = tasks.findIndex(t => t.id === taskId);
+            const task = tasks[taskIndex];
+
+            if (task.completed) {
+                if (confirm('Снять отметку о выполнении?')) {
+                    task.completed = false;
+                    task.completedBy = '';
+                    task.completedDate = '';
+                    saveTasksToFirebase();
+                    renderTasks();
+                }
+            } else {
+                const executor = prompt('Кто выполнил задачу?', '');
+                const date = prompt('Дата выполнения (YYYY-MM-DD):', new Date().toISOString().split('T')[0]);
+
+                if (executor && date) {
+                    task.completed = true;
+                    task.completedBy = executor;
+                    task.completedDate = date;
+                    saveTasksToFirebase();
+                    renderTasks();
+                }
+            }
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTasksFromFirebase();
+        });
+    </script>
+</body>
+</html>
